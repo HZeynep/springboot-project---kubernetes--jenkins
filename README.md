@@ -23,7 +23,7 @@ This repo consists of a Spring Boot Hello World application. It shows:
 Pre-requisities
 
 - Jenkins server launched
-- Docker, Kubectl, kubeadm, maven, java installed.
+- Docker, Kubectl, eksctl, maven, java installed.
 
 
 
@@ -37,27 +37,15 @@ Step 2: Creating Kubernetes yaml files
 Create Kubernetes yaml files (deployment.yml,service.yml, ingress.yaml) with the following contents and place it in the root location of the project repository.
 
 Step 3: For Automated Jenkins Configuration
+Create a Jenkinsfile with following content
+
 Creating Jenkins job
 Open the jenkins url and click on “New Item”
-Provide a name for the job and select freestyle job
+Provide a name for the job and select pipeline job
 Provide the git repository url and credentials for cloning the project. Also please specify the branch.
 
-Step-5: Create Token
 
-- Add token to the github. So, go to your github Account Profile  on right of the top >>>> Settings>>>>Developer Settings>>>>>>>>Personal access tokens >>>>>> Generate new token
-
-- Go to the >>>>>> project and open Git config file.
-
-```bash
-cd .git
-vi config
-
-Add "token" after "//" in the "url" part . And also paste "@" at the and of the token.
-  "url = https://<yourtoken@>github.com/hello-world.git
-
-```
-
-Step-6: Create Webhook 
+Step-5: Create Webhook 
 
 - Go to the `hello-world` repository page and click on `Settings`.
 
@@ -117,19 +105,19 @@ mvn clean package
 === Build Docker Image
 
 ```
-docker image build -t dolphinstar/spring-boot:latest .
+docker image build -t hzeynep/spring-boot:latest .
 ```
 
 === Push Docker Image
 
 ```
-docker image push dolphinstar/spring-boot:latest
+docker image push hzeynep/spring-boot:latest
 ```
 
 === Run Docker Container
 
 ```
-docker container run -d --name hello-world -p 8080:8080 dolphinstar/spring-boot:latest
+docker container run -d --name hello-world -p 8080:8080 hzeynep/spring-boot:latest
 ```
 
 === Test Application
@@ -146,10 +134,20 @@ docker container rm -f hello-world
 
 == Kubernetes
 
+==Create AWS EKS cluster
+
+eksctl create cluster --region us-east-1 --zones us-east-1a,us-east-1b,us-east-1c --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 1 --name my-cluster
+
+==Create ingress controller
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+
 === Create Deployment
 
 ```
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+kubectl apply -f ingress.yaml
 ```
 
 === Test Application
@@ -161,5 +159,10 @@ curl http://`kubectl get svc hello-world-service -o jsonpath={.status.loadBalanc
 === Delete Deployment
 
 ```
-kubectl delete -f deployment.yaml
+kubectl delete -f deployment.yml
+kubectl delete -f service.yml
+kubectl delete -f ingress.yaml
+
 ```
+==Delete EKS 
+./eksctl delete cluster my-cluster
