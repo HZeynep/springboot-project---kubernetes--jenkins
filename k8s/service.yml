@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: hello-world-deploy
+spec:
+  replicas: 1 
+  selector:  
+    matchLabels:
+      app: hello-world
+  minReadySeconds: 10 
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxUnavailable: 1 
+      maxSurge: 1 
+  template: 
+    metadata:
+      labels:
+        app: hello-world
+        env: front-end
+    spec:
+      containers:
+      - name: hello-world-pod
+        image: hzeynep/springboot
+        ports:
+        - containerPort: 8080
