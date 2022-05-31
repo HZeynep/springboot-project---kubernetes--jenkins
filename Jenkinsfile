@@ -23,7 +23,7 @@ pipeline {
                 sh "docker push hzeynep/springboot"
             }
         }
-        stage('Deploy App on Petclinic Kubernetes Cluster'){
+        stage('Deploy App on Kubernetes Cluster'){
             steps {
                 echo 'Deploying App on K8s Cluster'
                 sh "kubectl apply -f k8s"
