@@ -10,16 +10,16 @@ pipeline {
                 sh "mvn clean package"
             }
         }
-        stage('Build App Staging Docker Images') {
+        stage('Build Docker Images') {
             steps {
                 echo 'Building App Staging Images'
                 sh "docker build -t hzeynep/springboot ."
                 sh 'docker image ls'
             }
         }
-        stage('Push Images to ECR Repo') {
+        stage('Push Images to Docker Repo') {
             steps {
-                echo "Pushing ${APP_NAME} App Images to ECR Repo"
+                echo "Pushing Image to ECR Repo"
                 sh "docker push hzeynep/springboot"
             }
         }
