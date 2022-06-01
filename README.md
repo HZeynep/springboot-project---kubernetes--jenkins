@@ -1,14 +1,14 @@
 # springboot-project---kubernetes--jenkins
-- Short explanation about what/why you did
-1- Create a springboot project and upload it in GitHub.
-2- Create a *.jar file with mvn package command.
-3- Create a Dockerfile to build docker image.
-4- Create deployment.yml, service.yml and ingress.yml files for kubernetes objects.
-5- Create a Jenkinsfile to build image, push the image to docker hub and deploy app on Kubernetes (AWS EKS).
-Infrastructure:
-1- Jenkins server with java, maven, docker, Kubectl and eksctl.
-2- AWS EKS cluster. 
 
+-Short explanation about what/why you did
+1-Create springboot project and upload it in GitHub.
+2-Create .jar file with ```mvn package``` command.
+3-Create a Dockerfile to build docker image.
+4-Create deployment.yml,service.yml and ingress.yml files for kubernetes objects.
+5-Create a Jenkinsfile to build image, push to image to Dcokerhub and deploy app on Kubernetes (AWS EKS).
+Infrastructure:
+1- Jenkins server with java,maven, Docker, Kubectl and eksctl.
+2-AWS EKS cluster.
 
 
 = Hello World with Docker and Kubernetes
@@ -149,10 +149,18 @@ pipeline {
     }
 }
 ```
-Creating Jenkins job
-Open the jenkins url and click on “New Item”
-Provide a name for the job and select pipeline job
-Provide the git repository url and credentials for cloning the project. Also please specify the branch.
+
+Step-4: Create Jenkins Job
+- Go to the Jenkins dashboard and click on ```New Item``` to create a pipeline.
+- Enter ```hello-world-pipeline``` then select ```Pipeline``` and click ```OK```.
+- Enter ```Hello-world pipeline configured with Jenkinsfile and GitHub Webhook``` in the description field.
+- Put a checkmark on ```GitHub Project``` under ```General``` section, enter URL of the project repository.
+- Put a checkmark on ```GitHub hook trigger for GITScm polling``` under ```Build Triggers``` section.
+- Go to the ```Pipeline``` section, and select ```Pipeline script from SCM``` in the ```Definition``` field.
+- Select ```Git``` in the ```SCM``` field.
+- Enter URL of the project repository, and let others be default.
+```https://github.com/xxxxxxxxxxx/hello-world.git```
+- Click ```apply``` and ```save```. Note that the script ```Jenkinsfile``` should be placed under root folder of repo.
 
 
 Step-5: Create Webhook 
