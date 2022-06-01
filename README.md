@@ -67,7 +67,24 @@ spec:
     env: front-end 
     
   ingress.yaml
-  
+  apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-world-service
+                port: 
+                  number: 8080
  
 
 Step 3: For Automated Jenkins Configuration
