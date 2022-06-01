@@ -23,6 +23,36 @@ Create a dockerfile with the following contents and place it in the root locatio
 
 Step 2: Creating Kubernetes yaml files
 Create Kubernetes yaml files (deployment.yml,service.yml, ingress.yaml) with the following contents and place it in the root location of the project repository.
+deployment.yml
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: hello-world-deploy
+spec:
+  replicas: 1 
+  selector:  
+    matchLabels:
+      app: hello-world
+  minReadySeconds: 10 
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxUnavailable: 1 
+      maxSurge: 1 
+  template: 
+    metadata:
+      labels:
+        app: hello-world
+        env: front-end
+    spec:
+      containers:
+      - name: hello-world-pod
+        image: hzeynep/springboot
+        ports:
+        - containerPort: 8080
+ 
+ service.yml
+ 
 
 Step 3: For Automated Jenkins Configuration
 Create a Jenkinsfile with following content
