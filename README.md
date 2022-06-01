@@ -6,7 +6,7 @@
 - 3-Create a Dockerfile to build docker image.
 - 4-Create deployment.yml,service.yml and ingress.yml files for kubernetes objects.
 - 5-Create a Jenkinsfile to build image, push to image to Dcokerhub and deploy app on Kubernetes (AWS EKS).
-Infrastructure:
+- Infrastructure:
 - 1- Jenkins server with java,maven, Docker, Kubectl and eksctl.
 - 2-AWS EKS cluster.
 
