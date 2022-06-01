@@ -1,4 +1,15 @@
 # springboot-project---kubernetes--jenkins
+- Short explanation about what/why you did
+1- Create a springboot project and upload it in GitHub.
+2- Create a *.jar file with mvn package command.
+3- Create a Dockerfile to build docker image.
+4- Create deployment.yml, service.yml and ingress.yml files for kubernetes objects.
+5- Create a Jenkinsfile to build image, push the image to docker hub and deploy app on Kubernetes (AWS EKS).
+Infrastructure:
+1- Jenkins server with java, maven, docker, Kubectl and eksctl.
+2- AWS EKS cluster. 
+
+
 
 = Hello World with Docker and Kubernetes
 
