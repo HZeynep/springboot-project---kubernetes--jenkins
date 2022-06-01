@@ -29,6 +29,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 Step 2: Creating Kubernetes yaml files
 Create Kubernetes yaml files (deployment.yml,service.yml, ingress.yaml) with the following contents and place it in the root location of the project repository.
 deployment.yml
+```
 apiVersion: apps/v1 
 kind: Deployment 
 metadata:
@@ -55,8 +56,9 @@ spec:
         image: hzeynep/springboot
         ports:
         - containerPort: 8080
- 
+ ```
  service.yml
+ ```
  apiVersion: v1
 kind: Service   
 metadata:
@@ -70,9 +72,10 @@ spec:
     targetPort: 8080
   selector:
     env: front-end 
-    
+ ```   
   ingress.yaml
-  apiVersion: networking.k8s.io/v1
+```
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-service
@@ -90,11 +93,11 @@ spec:
                 name: hello-world-service
                 port: 
                   number: 8080
- 
+ ```
 
 Step 3: For Automated Jenkins Configuration
 Create a Jenkinsfile with following content
-
+```
 pipeline {
     agent any
     environment {
@@ -134,7 +137,7 @@ pipeline {
         }
     }
 }
-
+```
 Creating Jenkins job
 Open the jenkins url and click on “New Item”
 Provide a name for the job and select pipeline job
@@ -231,13 +234,13 @@ docker container rm -f hello-world
 == Kubernetes
 
 ==Create AWS EKS cluster
-
+```
 eksctl create cluster --region us-east-1 --zones us-east-1a,us-east-1b,us-east-1c --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 1 --name my-cluster
-
+```
 ==Create ingress controller
-
+```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
-
+```
 === Create Deployment
 
 ```
@@ -261,4 +264,6 @@ kubectl delete -f ingress.yaml
 
 ```
 ==Delete EKS 
+```
 ./eksctl delete cluster my-cluster
+```
