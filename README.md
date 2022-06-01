@@ -52,6 +52,22 @@ spec:
         - containerPort: 8080
  
  service.yml
+ apiVersion: v1
+kind: Service   
+metadata:
+  name: hello-world-service
+  labels:
+    app: hello-world
+spec:
+  type: NodePort
+  ports:
+  - port: 8080  
+    targetPort: 8080
+  selector:
+    env: front-end 
+    
+  ingress.yaml
+  
  
 
 Step 3: For Automated Jenkins Configuration
