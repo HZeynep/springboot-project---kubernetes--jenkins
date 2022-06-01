@@ -21,6 +21,11 @@ Step 1: Creating simple dockerfile
 In order to host and orchestrate our application on Kubernetes we have to build a docker image to build and run the application from the repo.
 Create a dockerfile with the following contents and place it in the root location of the project repository.
 
+FROM openjdk:11-jre
+ADD ./target/*.jar /app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+
 Step 2: Creating Kubernetes yaml files
 Create Kubernetes yaml files (deployment.yml,service.yml, ingress.yaml) with the following contents and place it in the root location of the project repository.
 deployment.yml
